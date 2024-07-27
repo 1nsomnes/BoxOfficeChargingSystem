@@ -10,6 +10,11 @@ main:
     syscall
     move $s0, $v0
 
+    # check that
+    li $t0, 1
+    slt $t1, $s0, $t0
+    beq $t0, $t1, adultCountError
+
     # Prompt for the number of minors
     li $v0, 4
     la $a0, prompt2
@@ -39,6 +44,14 @@ minorError:
     li $v0, 10
     j end
 
+adultCountError:
+    li $v0, 4
+    la $a0, adultCountErrorMessage
+    syscall
+
+    li $v0, 10
+    j end
+
 
 .data
 # prompts 
@@ -48,3 +61,4 @@ prompt3: .asciiz "\nHow many of those tickets are for seniors (over the age of 6
 
 # errors
 minorErrorMessage: .asciiz "\nSorry but all minors must be accompanied by one adult."
+adultCountErrorMessage: .asciiz "\nSorry the number of adults must be at least one."
