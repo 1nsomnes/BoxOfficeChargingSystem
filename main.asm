@@ -1,3 +1,7 @@
+##
+## Cedric Claessens
+##
+## The purpose of this program is to manage ticketing system. 
 
 .text 
 main:
