@@ -34,6 +34,15 @@ main:
     slt $t0, $s0, $t0
     bne $t0, $zero, minorError
 
+    # Prompt for the number of seniors
+    li $v0, 4
+    la $a0, prompt3
+    syscall
+    # Read the integer and save it in $s1
+    li $v0, 5
+    syscall
+    move $s2, $v0
+
 end: 
     # Exit the program
     li $v0, 10
