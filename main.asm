@@ -38,10 +38,15 @@ main:
     li $v0, 4
     la $a0, prompt3
     syscall
-    # Read the integer and save it in $s1
+    # Read the integer and save it in $s2
     li $v0, 5
     syscall
     move $s2, $v0
+
+    # subtract number of seniors (to get number of adults who are not seniors)
+    sub $s0, $s0, $s2
+    slt $t0, $s0, $zero
+    bne $t0, $zero, morePeopleThanListedError
 
 end: 
     # Exit the program
@@ -65,13 +70,23 @@ adultCountError:
     li $v0, 10
     j end
 
+morePeopleThanListedError:
+    li $v0, 4
+    la $a0, morePeopleThanListedErrorMessage
+    syscall
+
+    li $v0, 10
+    j end
+
 
 .data
 # prompts 
-prompt1: .asciiz "\n\nWelcome to the concert ticket system! \n\nPlease enter the number of tickets needed: "
+prompt1: .asciiz "\n\nWelcome to the concert ticket system! \n\nPlease enter the number of people in the party: "
 prompt2: .asciiz "\nHow many of those tickets are for a minor (under the age of 18):"
 prompt3: .asciiz "\nHow many of those tickets are for seniors (over the age of 65):"
 
 # errors
 minorErrorMessage: .asciiz "\nSorry but all minors must be accompanied by one adult."
 adultCountErrorMessage: .asciiz "\nSorry the number of adults must be at least one."
+morePeopleThanListedErrorMessage: .asciiz "\nSorry you have listed too many people."
+
