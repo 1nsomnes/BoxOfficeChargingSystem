@@ -1,5 +1,6 @@
 ##
 ## Cedric Claessens
+## CSC 230
 ##
 ## The purpose of this program is to manage ticketing system. 
 
